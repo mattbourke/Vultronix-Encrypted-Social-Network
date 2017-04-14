@@ -5,7 +5,7 @@
 # Vultronix - *pre-alpha stage*.
 A TOR first, client side encrypted social network.
 
-#TL;DR.
+# TL;DR.
   * All user data is encrypted client side
   * Vultronix has no access to any user data, Vultronix doesn't even know how many friends a user has.
   * Vultronix does not even know the user's login name.
@@ -14,7 +14,7 @@ A TOR first, client side encrypted social network.
   * All images a user uploads are encrypted client side before upload.
   * All Javascript is served directly from our servers and signed.  Going forward a hash of each JS release will be published here and on https://twitter.com/TheVultronix , we'll also sign the hash with our PGP key.
 
-#The application runs on the following stack.
+# The application runs on the following stack.
   * TOR
   * NGINX
   * Linux
@@ -24,7 +24,7 @@ A TOR first, client side encrypted social network.
   * Angular 1.5x
   * Express
 
-##Vultronix uses the following encryption and hashing algorithms to protect user data.
+## Vultronix uses the following encryption and hashing algorithms to protect user data.
 
   * RSA - for either TOR encryption, or clearnet HTTPS.
   * AES - each friendship has it's own unique Symetric key, as well as using Asymetric keys.
@@ -36,7 +36,7 @@ A TOR first, client side encrypted social network.
   (NOTE: All key stretching uses a mix of both the SHA-512 and SHA-256 algorithm by switching between the two at different steps of the stretching.  The SHA-256 is faster on 32 bit machines and the SHA-512 is faster on 64 bit machines, this version switching should just slow things down a very small bit.  )
 
 
-#Install instructions
+# Install instructions
   * Install NodeJS
   * Download the TOR Browser (You don't need TOR or NGINX for local development).
   * Install Memcached
@@ -44,7 +44,7 @@ A TOR first, client side encrypted social network.
   * npm install
 
 
-#Windows users....
+# Windows users....
 In cmd.exe navigate to *C:\Program Files\MongoDB 2.6 Standard\bin* then run the following
 
 * mongod --dbpath c:\mongo
