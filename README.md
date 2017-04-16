@@ -3,7 +3,8 @@
   * TOR: http://xvultx4llltx7w2d.onion
 
 # Vultronix - *pre-alpha stage*.
-A TOR first, client side encrypted social network.
+A TOR first, client side encrypted social network.  
+What? Why? How? read: [This Reddit Onions Post](https://www.reddit.com/r/onions/comments/5qtbi9/xvultx4llltx7w2donion_is_18_months_online_today/)
 
 # TL;DR.
   * All user data is encrypted client side
@@ -12,7 +13,7 @@ A TOR first, client side encrypted social network.
   * Vultronix doesn't even have access to public keys, this will help the user remain more quantum resistant.
   * Vultronix hosts all files and does not use a CDN, this is to protect the user's privacy.
   * All images a user uploads are encrypted client side before upload.
-  * All Javascript is served directly from our servers and signed.  Going forward a hash of each JS release will be published here and on https://twitter.com/TheVultronix , we'll also sign the hash with our PGP key.
+  * All Javascript is served directly from our servers and signed.  Going forward a hash of each JS release will be published here and on https://twitter.com/TheVultronix , we'll also sign the hash with our PGP key. Note: following our twitter account may reduce your privacy.
 
 # The application runs on the following stack.
   * TOR
