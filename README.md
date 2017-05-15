@@ -1,4 +1,6 @@
-  * PGP: 3DB6 FF02 6EBA 6AFF 63AF 2B6E DCE5 3FA2 EC58 63D8
+>A product of the brain of Matt Bourke, coded 2013/14/15 by [Matt Bourke](https://github.com/mattbourke) and [David White](https://github.com/cfjquery) - for freedom and liberty online, an end to end centralised encrypted network.
+
+* PGP: 3DB6 FF02 6EBA 6AFF 63AF 2B6E DCE5 3FA2 EC58 63D8
   * Bitcoin: 18FNZPvYeWUNLmnS6bQyJSVXYPJ87cssMM
   * TOR: http://xvultx4llltx7w2d.onion
 
