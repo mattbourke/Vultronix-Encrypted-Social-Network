@@ -1,0 +1,7 @@
+<div class="container">
+    <span id="albumsSpan" ng-show="albumsShow" data-ng-repeat="album in albums" >
+        <a href="javascript:void(0);" ng-click="showPhotosTab(album.albumUUID, album.decryptKey)">
+            <img src="{{album.albumImage}}" alt="Album Cover" title="{{album.albumTitle}}">
+        </a>
+    </span>
+</div>

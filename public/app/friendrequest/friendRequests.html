@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="warning label-warning" ng-show="warning">Warning: before you can create/accept friend requests, you must have a <a href="#/myprofile/about" style="color:white;text-decoration: underline;">profile</a> and cover image.</div>
+    <div class="col-md-6 col-lg-4 item" id="createFriendshipDiv">
+        <div class="panel panel-default timeline-block">
+            <div class="panel-heading panel-heading-gray title">
+                Create Friendship Invitation
+            </div>
+            <div class="panel-body" ng-controller="createFriendRequestController">
+                <form name="friendshipForm" ng-show="friendshipFormShow" class="form-horizontal" role="form">
+                    <input class="form-control" type="text" ng-model="credentials.message" placeholder="Short Message" required ng-disabled="warning"  ng-enter="createRequest()">
+                </form>
+                <div id="friendshipTokenDiv" ng-show="friendshipTokenDiv">
+                    <p>
+                        Pass this friend request token on to your friend, a token can only be used once, for multiple friends create multiple tokens.
+                    </p>
+                    <p ng-bind="friendshipToken" style="word-wrap: break-word;"></p>
+                </div>
+                <br />
+                <div class="panel-footer" style="padding: 10px 0px">
+                    <button class="btn btn-primary" ng-click="createRequest()" ng-disabled="warning"  ng-show="generateLink">Generate token</button>
+                    <button class="btn btn-primary" ng-click="anotherRequest()" ng-show="generateMore">Generate more</button>
+                </div>
+                <div id="validTokensCountDiv" ng-show="validTokensCountDiv">
+                    <p>
+                        You have {{validTokensCount}} valid tokens awaiting acceptance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4 item" id="createFriendshipDiv">
+        <div class="panel panel-default timeline-block">
+            <div class="panel-heading panel-heading-gray title">
+                Accept Friendship Invitation
+            </div>
+            <div class="panel-body" ng-controller="acceptFriendRequestController">
+                <p class="label label-danger">{{tokenStatus}}</p>
+                <form name="tokenForm" ng-show="tokenFormShow" class="form-horizontal" role="form">
+                    <input class="form-control" type="text" ng-model="credentials.token" placeholder="Enter token" required ng-disabled="warning" ng-enter="enterRequestToken()">
+                </form>
+                <div id="friendshipTokenDetailsDiv" ng-show="friendshipTokenDetailsDiv">
+                    <p>
+                        Perhaps you don&#39;t recognise the name as your friend uses an Alias, but you should recognise the message he/her/it has left you.
+                    </p>
+                         <div class="media-left">
+                            <img ng-src="{{friendsThumbnail}}" width="50" alt="" class="media-object img-circle">
+                        </div>
+                    <dl>
+                        <dt>Name</dt>
+                        <dd ng-bind="friendshipTokenName"></dd>
+                        <dt>Message</dt>
+                        <dd ng-bind="friendshipTokenMessage"></dd>
+                    </dl>
+                </div>
+                <br />
+                <div class="panel-footer" style="padding: 10px 0px">
+                    <button class="btn btn-primary" ng-click="enterRequestToken()" ng-disabled="tokenForm.$invalid" ng-show="readRequest">Read request</button>
+                    <button class="btn btn-primary" ng-show="acceptRequest" ng-disabled="warning" ng-click="acceptFriendRequest()">Accept Friendship</button>
+                    <button class="btn btn-primary" ng-show="cancelRequest" ng-click="requestCancel()">Cancel</button>
+                </div>
+                <div id="expiresMessageDiv" ng-show="readRequest">
+                    <p>
+                        Tokens expire after 2 weeks of no acceptance.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

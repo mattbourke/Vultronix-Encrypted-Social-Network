@@ -1,0 +1,138 @@
+<div class="container">
+    <div class="alert alert-info" ng-show="loadingFeed">{{feedLoadingMessage}}...</div>
+    <span ng-if="showStatusInput">
+        <div class="panel panel-default timeline-block whats-new">
+            <form name="formStatus" class="form-horizontal" role="form">
+                <div class="panel-heading panel-heading-gray title">
+                    What´s new {{name}}
+                </div>
+                <div class="panel-body">
+                    <div id="addedFeedImages"></div>
+                    <div id="addedFeedImagesNormal" hidden></div>
+                    <textarea name="article" ng-model="articleText" id="articleId" placeholder="Share your thoughts..." class="form-control share-text vul-textarea" rows="4" cols="36"></textarea>
+                </div>
+                <div id="whatsNewShareButtons" class="panel-footer share-buttons">
+                    <a href="" ng-click="imageSelect('feedImageInput')"><i class="fa fa-photo"></i></a>
+                    <a href="" ng-click="toggleVideoForm()"><i class="fa fa-video-camera"></i></a>
+                    <button type="submit" ng-click="saveStatus(articleText)" class="btn btn-primary btn-xs pull-right">Post</button>
+                </div>
+            </form>
+            <div id="videoForm" class="hide-this">
+                <ul style="display:flex; list-style:none; margin-left: -30px; margin-top: 10px;">
+                    <li>
+                        <input  id="videoInput"
+                                ng-model="videoInput"
+                                class="editable-has-buttons editable-input form-control"
+                                style="width: 323px;"
+                                placeholder="Paste your YouTube, Vine or DailyMotion url"
+                                required
+                        >
+                    </li>
+                    <li>
+                        <button ng-click="processVideo()" class="btn btn-primary" style="margin-left: 10px;">
+                            <i class="fa fa-check-circle"></i>
+                        </button>
+                    </li>
+                    <li>
+                        <button ng-click="toggleVideoForm()" type="button" class="btn btn-default" style="margin-left: 10px;">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <input  id       = "feedImageInput"
+                    type     = "file"
+                    name     = "feedImageInput"
+                    ng-model = "feedImageInput"
+                    onchange = "angular.element(this).scope().processImage('feedImage')"
+                    style    = "display: none;"
+            >
+        </div>
+    </span>
+    <div>
+        <div data-ng-repeat="article in myStatus | orderBy:'-statusData.postDate'" class="panel panel-default timeline-block timeline-vul">
+           <div class="panel-heading">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="{{article.friendProfileURL}}/{{profileMode}}/">
+                            <img class="img-50x50" ng-src="{{article.statusData.authorThumbnail}}" class="media-object">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="{{article.friendProfileURL}}/{{profileMode}}/">{{ article.statusData.userName | limitTo : 20}}</a>
+                        {{article.statusData.moment}}
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <span ng-if="article.media.length !== 0">
+                    <carousel interval="myInterval" class="carousel-width">
+                        <slide ng-repeat="media in article.media track by $index" active="media.active">
+                            <span>
+                                <img id       = "thumbnail_{{media.type}}_{{$index}}"
+                                     ng-click = "Lightbox.openModal(article.media, $index)"
+                                     ng-src   = "{{media.thumbUrl}}"
+                                     style    = "width: 268px; max-height: 201px;"
+                                >
+                            </span>
+                        </slide>
+                    </carousel>
+                    <hr>
+                </span>
+                <p class="wrapped">
+                    {{ article.statusData.article | limitTo : 162}}
+                    <span>
+                        <a href="{{article.viewURL}}"  class="btn btn-primary btn-xs">Read</a>
+                    </span>
+                </p>
+            </div>
+            <span ng-if="article.comments">
+                <div class="view-all-comments">
+                    <span ng-if="article.comments.length !== 0">
+                        <a href="#/feedArticle/{{article.statusUUID}}"><i class="fa fa-comments-o"></i> View all</a>
+                    </span>
+                    <span>{{article.comments.length}} comments</span>
+                </div>
+            </span>
+            <ul class="comments">
+                <span ng-if="article.comments.length !== 0">
+                    <li class="media" data-ng-repeat="comments in article.comments | orderBy : 'commentDate' | limitTo : -3">
+                        <div class="media-left">
+                            <img class="img-50x50" ng-src="{{comments.authorThumbnail}}" class="media-object">
+                        </div>
+                        <div class="media-body">
+                            <a href="#" onclick="return false;" class="comment-author pull-left">{{comments.authorName}}</a>
+                            <span class="comment-text">{{comments.commentText | limitTo : 162}}</span>
+                            <div class="comment-date">{{comments.commentMoment}}</div>
+                        </div>
+                    </li>
+                </span>
+                <li class="comment-form">
+                    <div class="input-group">
+                        <a  href="" ng-click="commentForm$index = !commentForm$index">
+                            Add a comment
+                        </a>
+                        <div ng-show="commentForm$index">
+                            <ul style="display:flex; list-style:none; margin-left: -30px; margin-top: 10px;">
+                                <li>
+                                    <input type="text" style="margin-left: -15px;width: 190px;" ng-model="commentText$index" placeholder="Make a comment" autocorrect="off" autocapitalize="none" ng-enter="saveComment(article.statusUUID,commentText$index,article.decryptKey);commentText$index='';commentForm$index = !commentForm$index" autofocus >
+                                </li>
+                                <li>
+                                    <button ng-click="saveComment(article.statusUUID,commentText$index,article.decryptKey);commentText$index='';commentForm$index = !commentForm$index" class="btn btn-primary">
+                                        <i class="fa fa-check-circle"></i>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button ng-click="commentForm$index = !commentForm$index" type="button" class="btn btn-default">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <input name="articleId" value="{{article.statusUUID}}" hidden>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

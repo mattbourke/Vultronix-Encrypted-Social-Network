@@ -1,0 +1,3 @@
+VultronixApp.service('privacyService', function () {
+
+});

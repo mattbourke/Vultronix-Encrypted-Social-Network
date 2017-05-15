@@ -1,0 +1,29 @@
+<div class="chat-window-container vul-chatbox-position">
+    <div class="panel panel-default" data-user-id="1" id="chat-0001" ng-controller="ChatboxController">
+        <div class="panel-heading" data-toggle="chat-collapse" data-target="#chat-bill">
+            <a ng-click="toggleChatbox()" href="" class="close"><i class="fa fa-times"></i></a>
+            <a href="#/friendsprofile/{{$root.currentChatFriend.friendUUID}}/feed">
+            <span class="pull-left">
+                <img src="{{$root.currentChatFriend.thumbnail}}" class="img-circle" width="40">
+            </span>
+            <span class="contact-name">{{$root.currentChatFriend.name}}</span>
+            </a>
+        </div>
+        <div class="panel-body" id="chat-bill">
+            <div class="media" data-ng-repeat="comment in $root.conversationComments | orderBy:'-dateTime':'reverse'">
+                <div class="media-left">
+                    <a href="{{comment.profileURL}}">
+                        <img src="{{comment.thumbnail}}" width="25" class="img-circle" alt="people">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <span class="message emoji-text">{{comment.message}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="panel-comment-text">
+            <div class="alert alert-info" ng-show="loading">{{statusMessage}}...</div>
+            <input type="text" class="form-control" id="chat-textbox" placeholder="Type message..." ng-enter="newChatMessage()" ng-model="newMessageText" ng-keyup="userTyping()">
+        </div>
+    </div>
+</div>

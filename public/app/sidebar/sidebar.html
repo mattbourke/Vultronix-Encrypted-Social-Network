@@ -1,0 +1,37 @@
+<div id="messageSidebar"
+     class="sidebar sidebar-chat right sidebar-size-2 sidebar-offset-0 chat-skin-dark sidebar-visible-mobile sidebar-open"
+     ng-show="$root.showSidebar">
+    <div class="split-vertical">
+        <div class="chat-search">
+            <input type="text" class="form-control" placeholder="Search" ng-model="searchText">
+        </div>
+        <div class="split-vertical-body">
+            <div class="split-vertical-cell">
+                <div data-scrollable="" tabindex="0" style="overflow-y: hidden; outline: none;">
+                    <ul class="chat-contacts">
+                        <li data-ng-repeat="friend in $root.friends | orderBy:'onlineStatus':'reverse' | filter:searchText"
+                            class="{{friend.onlineStatus}}"
+                            style="display: list-item;">
+                            <a href="" ng-click="toggleChatbox(friend.friendUUID)">
+                                <div class="media">
+                                    <div class="pull-left">
+                                        <span class="status"></span>
+                                        <img ng-src="{{friend.thumbnail}}" width="40" class="img-circle img-50x50">
+                                    </div>
+                                    <div class="media-body">
+                                        <div class="contact-name">{{friend.name}}</div>
+                                        <small id="{{friend.friendUUID}}" class="user-typing">User is typing...</small>
+                                        <br />
+                                        <small id="{{friend.myFriendshipUUID}}" class="user-unread">Unread</small>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

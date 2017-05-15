@@ -1,0 +1,46 @@
+<div id="loginDiv" class="login" ng-controller="LoginController">
+	<div class="container">
+		<div id="content">
+			<div class="blank-navbar"></div>
+			<div class="container-fluid">
+				<div class="lock-container">
+					<div class="panel panel-default text-center">
+						<br />
+						<img ng-src="{{vLogo}}" border="0" />
+ 						<div class="panel-body">
+							<form name="loginForm" ng-submit="login()" novalidate>
+								<p class="label label-warning">Warning - If you forget any of the below you will never login again</p>
+								<p class="label label-danger">{{loginError}}</p>
+								<p class="label label-info">{{loginStatus}}</p>
+								<div class="form-fields-container" ng-show="!loginStatus.length">
+									<div class="form-group" ng-class="{'has-error':loginForm.email.$invalid && !loginForm.email.$pristine,'has-success':loginForm.email.$valid && !loginForm.email.$pristine}">
+										<input type="text" name="email" class="form-control"  ng-minlength="10" ng-model="credentials.email" placeholder="Email address" autocorrect="off" autocapitalize="none" ng-enter="login()" required>
+										<p ng-show="loginForm.email.$error.required && !loginForm.email.$pristine" class="error-class">Email is required.</p>
+										<p ng-show="loginForm.email.$error.minlength" class="error-class">Email is too short.</p>
+										<hr>
+									</div>
+									<div class="form-group" ng-class="{'has-error':loginForm.password.$invalid && !loginForm.password.$pristine,'has-success':loginForm.password.$valid && !loginForm.password.$pristine}">
+										<input type="password" name="password" class="form-control"  ng-minlength="10" ng-model="credentials.password" placeholder="Password" autocorrect="off" autocapitalize="none" ng-enter="login()" required>
+										<p ng-show="loginForm.password.$error.required && !loginForm.password.$pristine" class="error-class">Password is required.</p>
+										<p ng-show="loginForm.password.$error.minlength" class="error-class">Password is too short.</p>
+										<hr>
+									</div>
+									<div class="form-group" ng-class="{'has-error':loginForm.words.$invalid && !loginForm.words.$pristine,'has-success':loginForm.words.$valid && !loginForm.words.$pristine}">
+										<input type="password" name="words" class="form-control"  ng-minlength="10" ng-model="credentials.words" placeholder="Words" autocorrect="off" autocapitalize="none" ng-enter="login()" required>
+										<p ng-show="loginForm.words.$error.required && !loginForm.words.$pristine" class="error-class">Words are required.</p>
+										<p ng-show="loginForm.words.$error.minlength" class="error-class">Not enough words.</p>
+										<hr>
+									</div>
+								</div>
+								<button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Login <i class="fa fa-fw fa-unlock-alt"></i></button>
+								<span class="h6 signup-separator">or</span>
+								<a href="#/home" class="btn btn-primary">Cancel <i class="fa fa-fw fa-times"></i></a>
+								<br />
+							</form>
+ 						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

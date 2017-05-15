@@ -1,0 +1,47 @@
+<div class="container">
+    <form name="photoForm">
+        <button type="button" class="btn btn-primary" ng-click="createPhoto();" ng-show="photosShow">
+            Upload photo
+        </button>
+        <button type="button" class="btn btn-primary" ng-click="cancelCreatePhoto();" ng-show="photoFormShow">
+            Cancel
+        </button>
+        <span id="photosSpan" ng-show="photosShow" data-ng-repeat="photo in photos track by $index" >
+            <img ng-src   = "{{photo.thumbUrl}}"
+                 id       = "thumbnail_{{$index}}"
+                 alt      = "photo Cover"
+                 title    = "{{photo.caption}}"
+                 height   = "80"
+                 width    = "120"
+                 ng-click = "Lightbox.openModal(photos, $index)"
+                 >
+        </span>
+
+        <span id="newPhotoSpan" ng-show="photoFormShow" style="display:inline-block;">
+            <a href="">
+                <img    id       = "newPhotoImage"
+                        ng-src   = "{{ newPhotoImage }}"
+                        ng-click = "imageSelect('newPhotoImageInput')"
+                        title    = "Click to upload photo"
+                        class    = "img-responsive"
+                        style    = "display: inline;"
+                        height   = "80"
+                        width    = "120"
+                >
+            </a>
+                <input  id         = "newPhotoImageInput"
+                        type       = "file"
+                        name       = "newPhotoImageInput"
+                        ng-model   = "newPhotoImageInput"
+                        onchange   = "angular.element(this).scope().processImage('newPhotoImage')"
+                        style      = "display: none;"
+                >
+        </span>
+        <span id="newphotoFormSpan" ng-show="photoFormShow" style="display:inline-block;">
+            <input type="text" name="photoText" id="photoText" ng-model="photoText"  value="{{photoText}}" placeholder="Enter photo title" ng-required="true">
+        </span>
+        <button type="button" class="btn btn-primary" ng-click="photoForm.$valid && savePhoto(photoText);" ng-show="photoFormShow">
+            Save
+        </button>
+    </form>
+</div>

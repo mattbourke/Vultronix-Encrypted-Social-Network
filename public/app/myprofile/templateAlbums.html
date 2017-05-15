@@ -1,0 +1,39 @@
+<div class="container">
+    <form name="albumForm">
+        <button type="button" class="btn btn-primary" ng-click="createAlbum();" ng-show="albumsShow">
+            Create album
+        </button>
+        <button type="button" class="btn btn-primary" ng-click="cancelCreateAlbum();" ng-show="albumFormShow">
+            Cancel
+        </button>
+        <span id="albumsSpan" ng-show="albumsShow" data-ng-repeat="album in albums" >
+            <a href="javascript:void(0);" ng-click="showPhotosTab(album.albumUUID, album.decryptKey)">
+                <img src="{{album.albumImage}}"  alt="Album Cover" title="{{album.albumTitle}}">
+            </a>
+        </span>
+        <span id="newAlbumCoverSpan" ng-show="albumFormShow" style="display:inline-block;">
+            <a href="">
+                <img    id       = "newAlbumImage"
+                        ng-src   = "{{ newAlbumImage }}"
+                        ng-click = "imageSelect('newAlbumImageInput')"
+                        title    = "Click to upload album cover"
+                        class    = "img-responsive"
+                        style    = "display: inline;"
+                >
+            </a>
+                <input  id         = "newAlbumImageInput"
+                        type       = "file"
+                        name       = "newAlbumImageInput"
+                        ng-model   = "newAlbumImageInput"
+                        onchange   = "angular.element(this).scope().processImage('newAlbumImage')"
+                        style      = "display: none;"
+                >
+        </span>
+        <span id="newAlbumFormSpan" ng-show="albumFormShow" style="display:inline-block;">
+            <input type="text" name="albumText" id="albumText" ng-model="albumText"  value="{{albumText}}" placeholder="Enter photo album title" ng-required="true">
+        </span>
+        <button type="button" class="btn btn-primary" ng-click="albumForm.$valid && saveAlbum(albumText);" ng-show="albumFormShow">
+            Save
+        </button>
+    </form>
+</div>

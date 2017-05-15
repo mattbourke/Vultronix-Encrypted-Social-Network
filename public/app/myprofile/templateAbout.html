@@ -1,0 +1,53 @@
+<div class="panel panel-default">
+    <form name="aboutForm">
+        <div class="panel-heading panel-heading-gray">
+            <button type="button" class="btn btn-white btn-xs pull-right" ng-click="aboutForm = !aboutForm;aboutData = !aboutData">
+                <i class="fa fa-pencil"></i>
+            </button>
+            <i class="fa fa-fw fa-info-circle"></i> About
+        </div>
+        <div class="panel-body">
+            <div id="aboutForm" ng-show="aboutForm === false">
+                <ul class="list-unstyled profile-about margin-none">
+                    <li class="padding-v-5" data-ng-repeat="(key, value) in myProfile | orderBy:'value.orderId'">
+                        <div class="row">
+                            <div class="col-sm-4"><span class="text-muted">{{ value.title }}</span></div>
+                            <div ng-switch on="value.editType" class="about-mobile-padding">
+                                <div ng-switch-when="editable-bsdate">
+                                    <input type="text" class="col-sm-8" id="{{key}}" name="{{key}}" ng-model="value.pData">
+                                </div>
+                                <div ng-switch-when="editable-email">
+                                    <input type="text" class="col-sm-8" id="{{key}}" name="{{key}}" ng-model="value.pData">
+                                </div>
+                                <div ng-switch-when="editable-url">
+                                    <input type="text" class="col-sm-8" id="{{key}}" name="{{key}}" ng-model="value.pData">
+                                </div>
+                                <div ng-switch-when="editable-text">
+                                    <input type="text" class="col-sm-8" id="{{key}}" name="{{key}}" ng-model="value.pData">
+                                </div>
+                            </div>
+                    </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="aboutData" ng-show="aboutData === true">
+                <ul class="list-unstyled profile-about margin-none">
+                    <li data-ng-repeat="(key, value) in myProfile | orderBy:'value.orderId'">
+                        <div class="row">
+                            <div class="col-sm-4"><span class="text-muted">{{ value.title }}</span></div>
+                            <span class="about-mobile-padding">{{value.pData}}</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <span ng-show="aboutForm === false">
+                <button type="submit" class="btn btn-primary" ng-click="saveProfile();aboutForm = !aboutForm;aboutData = !aboutData">
+                    Save
+                </button>
+                <button type="button" class="btn btn-default" ng-click="aboutForm = !aboutForm;aboutData = !aboutData">
+                    Cancel
+                </button>
+            </span>
+        </div>
+    </form>
+</div>

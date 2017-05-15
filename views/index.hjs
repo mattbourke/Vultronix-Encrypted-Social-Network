@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html data-ng-app="VultronixApp" lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>Vultronix.com - Use the product, don&#39;t become the product</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="theme-color" content="#c3a961" />
+    <link rel="icon" sizes="16x16"   href="images/favicons/favicon-16x16.png"  type="image/png">
+    <!-- inline JS and CSS for faster loading of the loader for TOR users -->
+    <style>
+        body.pg-loading{overflow:hidden}.pg-loading-screen{position:fixed;bottom:0;left:0;right:0;top:0;z-index:1000000;opacity:1;background-color:#FFF;-webkit-transition:background-color .4s ease-in-out 0s;-moz-transition:background-color .4s ease-in-out 0s;-ms-transition:background-color .4s ease-in-out 0s;-o-transition:background-color .4s ease-in-out 0s;transition:background-color .4s ease-in-out 0s}.pg-loading-screen.pg-loaded{opacity:0;-webkit-animation:pgAnimLoaded .5s cubic-bezier(.7,0,.3,1) both;-moz-animation:pgAnimLoaded .5s cubic-bezier(.7,0,.3,1) both;-ms-animation:pgAnimLoaded .5s cubic-bezier(.7,0,.3,1) both;-o-animation:pgAnimLoaded .5s cubic-bezier(.7,0,.3,1) both;animation:pgAnimLoaded .5s cubic-bezier(.7,0,.3,1) both}.pg-loading-screen.pg-loading .pg-loading-html,.pg-loading-screen.pg-loading .pg-loading-logo-header{opacity:1}.pg-loading-screen.pg-loading .pg-loading-html:not(.pg-loaded),.pg-loading-screen.pg-loading .pg-loading-logo-header{-webkit-animation:pgAnimLoading 1s cubic-bezier(.7,0,.3,1) both;-moz-animation:pgAnimLoading 1s cubic-bezier(.7,0,.3,1) both;-ms-animation:pgAnimLoading 1s cubic-bezier(.7,0,.3,1) both;-o-animation:pgAnimLoading 1s cubic-bezier(.7,0,.3,1) both;animation:pgAnimLoading 1s cubic-bezier(.7,0,.3,1) both}.pg-loading-screen.pg-loading .pg-loading-html:not(.pg-loaded){-webkit-animation-delay:.3s;-moz-animation-delay:.3s;-ms-animation-delay:.3s;-o-animation-delay:.3s;animation-delay:.3s}.pg-loading-screen .pg-loading-inner{height:100%;width:100%;margin:0;padding:0;position:static}.pg-loading-screen .pg-loading-center-outer{width:100%;padding:0;display:table!important;height:100%;position:absolute;top:0;left:0;margin:0}.pg-loading-screen .pg-loading-center-middle{padding:0;vertical-align:middle;display:table-cell!important;margin:0;text-align:center}.pg-loading-screen .pg-loading-html,.pg-loading-screen .pg-loading-logo-header{width:100%;opacity:0}.pg-loading-screen .pg-loading-logo-header{text-align:center}.pg-loading-screen .pg-loading-logo-header img{display:inline-block!important}.pg-loading-screen .pg-loading-html{margin-top:90px}.pg-loading-screen .pg-loading-html.pg-loaded{-webkit-transition:opacity .5s cubic-bezier(.7,0,.3,1);-moz-transition:opacity .5s cubic-bezier(.7,0,.3,1);-ms-transition:opacity .5s cubic-bezier(.7,0,.3,1);-o-transition:opacity .5s cubic-bezier(.7,0,.3,1);transition:opacity .5s cubic-bezier(.7,0,.3,1)}.pg-loading-screen .pg-loading-html.pg-loaded.pg-removing{opacity:0}.pg-loading-screen .pg-loading-html.pg-loaded.pg-loading{opacity:1}.pg-loading-screen .pg-loading-html p.loading-message{font-size:20px;margin-bottom:100px}.pg-loading-screen .pg-loading-html p{color:#FFF;font-weight:300}@-webkit-keyframes pgAnimLoading{from{opacity:0}}@-moz-keyframes pgAnimLoading{from{opacity:0}}@-o-keyframes pgAnimLoading{from{opacity:0}}@-ms-keyframes pgAnimLoading{from{opacity:0}}@keyframes pgAnimLoading{from{opacity:0}}@-webkit-keyframes pgAnimLoaded{from{opacity:1}}@-moz-keyframes pgAnimLoaded{from{opacity:1}}@-o-keyframes pgAnimLoaded{from{opacity:1}}@-ms-keyframes pgAnimLoaded{from{opacity:1}}@keyframes pgAnimLoaded{from{opacity:1}}
+
+        /*https://github.com/tobiasahlin/SpinKit*/
+        .spinner{margin:100px auto;width:40px;height:40px;position:relative;text-align:center;-webkit-animation:sk-rotate 2s infinite linear;animation:sk-rotate 2s infinite linear}.dot1,.dot2{width:60%;height:60%;display:inline-block;position:absolute;top:0;background-color:#fff;border-radius:100%;-webkit-animation:sk-bounce 2s infinite ease-in-out;animation:sk-bounce 2s infinite ease-in-out}.dot2{top:auto;bottom:0;-webkit-animation-delay:-1s;animation-delay:-1s}@-webkit-keyframes sk-rotate{100%{-webkit-transform:rotate(360deg)}}@keyframes sk-rotate{100%{transform:rotate(360deg);-webkit-transform:rotate(360deg)}}@-webkit-keyframes sk-bounce{0%,100%{-webkit-transform:scale(0)}50%{-webkit-transform:scale(1)}}@keyframes sk-bounce{0%,100%{transform:scale(0);-webkit-transform:scale(0)}50%{transform:scale(1);-webkit-transform:scale(1)}}
+    </style>
+    <link rel="stylesheet" href="stylesheets/app.min.css" />
+</head>
+<body>
+    <script type="text/javascript">
+        /**
+        * please-wait
+        * @author Pathgather <tech@pathgather.com>
+        * @copyright Pathgather 2015
+        * @license MIT <http://opensource.org/licenses/mit-license.php>
+        * @link https://github.com/Pathgather/please-wait
+        */
+        !function(n,t){"object"==typeof exports?t(exports):"function"==typeof define&&define.amd?define(["exports"],t):t(n)}(this,function(n){var t,i,e,o,l,a,d,s,r,m,g,h,u,c,p,_;a=document.createElement("fakeelement"),o=!1,u=!1,e="animationend",h=null,l="Webkit Moz O ms".split(" "),g={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd",msTransition:"MSTransitionEnd",transition:"transitionend"};for(d in g)if(c=g[d],null!=a.style[d]){h=c,u=!0;break}if(null!=a.style.animationName&&(o=!0),!o)for(p=0,_=l.length;_>p;p++)if(s=l[p],null!=a.style[""+s+"AnimationName"]){switch(s){case"Webkit":e="webkitAnimationEnd";break;case"Moz":e="animationend";break;case"O":e="oanimationend";break;case"ms":e="MSAnimationEnd"}o=!0;break}return i=function(n,t){return t.classList?t.classList.add(n):t.className+=" "+n},m=function(n,t){return t.classList?t.classList.remove(n):t.className=t.className.replace(n,"").trim()},t=function(){function n(n){var t,l,a,d;t=this.constructor._defaultOptions,this.options={},this.loaded=!1,this.finishing=!1;for(l in t)d=t[l],this.options[l]=null!=n[l]?n[l]:d;this._loadingElem=document.createElement("div"),this._loadingHtmlToDisplay=[],this._loadingElem.className="pg-loading-screen",null!=this.options.backgroundColor&&(this._loadingElem.style.backgroundColor=this.options.backgroundColor),this._loadingElem.innerHTML=this.options.template,this._loadingHtmlElem=this._loadingElem.getElementsByClassName("pg-loading-html")[0],null!=this._loadingHtmlElem&&(this._loadingHtmlElem.innerHTML=this.options.loadingHtml),this._readyToShowLoadingHtml=!1,m("pg-loaded",document.body),i("pg-loading",document.body),document.body.appendChild(this._loadingElem),i("pg-loading",this._loadingElem),this._onLoadedCallback=this.options.onLoadedCallback,a=function(n){return function(t){return n.loaded=!0,n._readyToShowLoadingHtml=!0,i("pg-loaded",n._loadingHtmlElem),o&&n._loadingHtmlElem.removeEventListener(e,a),n._loadingHtmlToDisplay.length>0&&n._changeLoadingHtml(),n.finishing?(null!=t&&t.stopPropagation(),n._finish()):void 0}}(this),null!=this._loadingHtmlElem&&(o?this._loadingHtmlElem.addEventListener(e,a):a(),this._loadingHtmlListener=function(n){return function(){return n._readyToShowLoadingHtml=!0,m("pg-loading",n._loadingHtmlElem),u&&n._loadingHtmlElem.removeEventListener(h,n._loadingHtmlListener),n._loadingHtmlToDisplay.length>0?n._changeLoadingHtml():void 0}}(this),this._removingHtmlListener=function(n){return function(){return n._loadingHtmlElem.innerHTML=n._loadingHtmlToDisplay.shift(),m("pg-removing",n._loadingHtmlElem),i("pg-loading",n._loadingHtmlElem),u?(n._loadingHtmlElem.removeEventListener(h,n._removingHtmlListener),n._loadingHtmlElem.addEventListener(h,n._loadingHtmlListener)):n._loadingHtmlListener()}}(this))}return n._defaultOptions={backgroundColor:null,loadingHtml:null,template:"<div class='pg-loading-inner'>\n  <div class='pg-loading-center-outer'>\n    <div class='pg-loading-center-middle'>\n     <div class='pg-loading-html'>\n      </div>\n    </div>\n  </div>\n</div>",onLoadedCallback:null},n.prototype.finish=function(n,t){return null==n&&(n=!1),window.document.hidden&&(n=!0),this.finishing=!0,null!=t&&this.updateOption("onLoadedCallback",t),this.loaded||n?this._finish(n):void 0},n.prototype.updateOption=function(n,t){switch(n){case"backgroundColor":return this._loadingElem.style.backgroundColor=t;case"loadingHtml":return this.updateLoadingHtml(t);case"onLoadedCallback":return this._onLoadedCallback=t;default:throw new Error("Unknown option '"+n+"'")}},n.prototype.updateOptions=function(n){var t,i,e;null==n&&(n={}),e=[];for(t in n)i=n[t],e.push(this.updateOption(t,i));return e},n.prototype.updateLoadingHtml=function(n,t){if(null==t&&(t=!1),null==this._loadingHtmlElem)throw new Error("The loading template does not have an element of class 'pg-loading-html'");return t?(this._loadingHtmlToDisplay=[n],this._readyToShowLoadingHtml=!0):this._loadingHtmlToDisplay.push(n),this._readyToShowLoadingHtml?this._changeLoadingHtml():void 0},n.prototype._changeLoadingHtml=function(){return this._readyToShowLoadingHtml=!1,this._loadingHtmlElem.removeEventListener(h,this._loadingHtmlListener),this._loadingHtmlElem.removeEventListener(h,this._removingHtmlListener),m("pg-loading",this._loadingHtmlElem),m("pg-removing",this._loadingHtmlElem),u?(i("pg-removing",this._loadingHtmlElem),this._loadingHtmlElem.addEventListener(h,this._removingHtmlListener)):this._removingHtmlListener()},n.prototype._finish=function(n){var t;return null==n&&(n=!1),null!=this._loadingElem?(i("pg-loaded",document.body),"function"==typeof this._onLoadedCallback&&this._onLoadedCallback.apply(this),t=function(n){return function(){return document.body.removeChild(n._loadingElem),m("pg-loading",document.body),o&&n._loadingElem.removeEventListener(e,t),n._loadingElem=null}}(this),!n&&o?(i("pg-loaded",this._loadingElem),this._loadingElem.addEventListener(e,t)):t()):void 0},n}(),r=function(n){return null==n&&(n={}),new t(n)},n.pleaseWait=r,r});
+
+      window.loading_screen = window.pleaseWait({
+        backgroundColor: '#c3a961',
+        loadingHtml: "<p class='loading-message'>Just a moment...</p><div class='spinner'><div class='dot1'></div><div class='dot2'></div></div>"
+      });
+    </script>
+    <div class="release-ribbon-wrapper left">
+        <div class="release-ribbon">
+            <span>Alpha 0.1</span>
+        </div>
+    </div>
+    <div class="st-pusher" id="content">
+        <div class="st-content">
+            <div class="st-content-inner">
+                <nav class="navbar default-nav-content navbar-subnav navbar-static-top" role="navigation" ng-controller="SidebarController">
+                    <div ng-include="'app/sidebar/sidebar.html'"></div>
+
+                    <div class="container" style="display: none;" id="navBarContainer">
+                        <div class="navbar-header" ng-show="logoShow">
+                            <img src="data:image/jpg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QDkRXhpZgAATU0AKgAAAAgACAExAAIAAAARAAAAbgEyAAIAAAAUAAAAgAE+AAUAAAACAAAAlAE/AAUAAAAGAAAApAMBAAUAAAABAAAA1FEQAAEAAAABAQAAAFERAAQAAAABAAAOxFESAAQAAAABAAAOxAAAAABBZG9iZSBJbWFnZVJlYWR5AAAyMDE1OjA3OjEzIDA5OjA0OjU5AAAAeiYAAYagAACAhAABhqAAAPoAAAGGoAAAgOgAAYagAAB1MAABhqAAAOpgAAGGoAAAOpgAAYagAAAXcAABhqAAAYagAACxj//bAEMAAgEBAgEBAgICAgICAgIDBQMDAwMDBgQEAwUHBgcHBwYHBwgJCwkICAoIBwcKDQoKCwwMDAwHCQ4PDQwOCwwMDP/bAEMBAgICAwMDBgMDBgwIBwgMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDP/AABEIACYAJgMBIgACEQEDEQH/xAAfAAABBQEBAQEBAQAAAAAAAAAAAQIDBAUGBwgJCgv/xAC1EAACAQMDAgQDBQUEBAAAAX0BAgMABBEFEiExQQYTUWEHInEUMoGRoQgjQrHBFVLR8CQzYnKCCQoWFxgZGiUmJygpKjQ1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4eLj5OXm5+jp6vHy8/T19vf4+fr/xAAfAQADAQEBAQEBAQEBAAAAAAAAAQIDBAUGBwgJCgv/xAC1EQACAQIEBAMEBwUEBAABAncAAQIDEQQFITEGEkFRB2FxEyIygQgUQpGhscEJIzNS8BVictEKFiQ04SXxFxgZGiYnKCkqNTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqCg4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2dri4+Tl5ufo6ery8/T19vf4+fr/2gAMAwEAAhEDEQA/AP38zXG+OPjfo/gu5a2y99eJw0UJGEPozdAfbk0fG3xtJ4L8Hsbdyt5ev5MTDrGMZZh9B09yK89+DPwgj8aRNqmqGQ2KuVjjDYM7DqSeu0dOOpz6UAa0X7U+bj59FxH6rc/N/wCg13Xgb4q6T49Gy1laK6Ubmt5Rtkx6jsw+lcRoPjD4V+OPFD+G7E6bLf5aNNkLxiZhnISXA3EYPQ844zXK/E3wBcfCbxJbXdhcS/ZZG320ufniYdVJ/r3H415uWZxgMxpyq5fWhVjFuLcJKSUlum03quxtXw9Wi+WtFxe+qtofQtFY3w/8Ujxl4Rs9QwFeZMSKOiuOG/UUV6RiefftSxSG20eT/lmryqfqQp/kDXWfBmS31L4V6fGu1kEbxSr77m3A/XP61e+JfglfHvhSay3KkykSwOeiuOmfY5IP1rxfwX481X4Na3cWV1as0LP+/tZDtIP95T6479CKUkmrMDkfgF8HdN079rnVtNWW5a18LtJc2oJG52VlChj6DfnjrgV7Z+05cwp4OsoWx50l2GQd8BG3H9R+dc5pnxK8F+G/FepeJNP0O+XXtWQLcOzgK3QnHzEDJAyQOcVgXE+tfHXxmu1MbflAUHyrSPPUn/JJr888NeCVwxgK+E5Yp1K1Sa5b25XL3E7paxgkrbLu9z2M6zT69VjU10jFa90tfvZ6h+znE8fw4Vm+7JcyMn04H8waK67w5oUPhjQ7Wwt/9TaxhFJ6t6k+5OT+NFfoh45erN8R+D9M8WQLHqFnDdBfusy/Mv0YciiigDnIv2f/AAzHNu+xzMM52tcPt/nXVaNoNn4esxb2NrDawj+GNdufc+p9zRRQBbooooA//9k=" class="brand-image">
+                            <p class="brand-text pull-right">Vultronix</p>
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                        <div class="navbar-collapse collapse" id="main-nav">
+                            <ul class="nav navbar-nav"  id="navList">
+                                <li data-ng-class="{'active':getClass('/feed')}">
+                                    <a href="#/feed"><i class="fa fa-fw fa-rss feedIcon" id="feedIcon"></i>Feed</a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/myprofile')}">
+                                    <a href="#/myprofile"><i class="fa fa-fw fa-home"></i>Profile</a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/inbox')}">
+                                    <a href="#/inbox"><i class="fa fa-fw fa-comment messageIcon" id="messageIcon"></i>Inbox</a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/myfriends')}">
+                                    <a href="#/myfriends"><i class="fa fa-fw fa-user"></i>Friends</a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/friendrequest')}">
+                                    <a href="#/friendrequest"><i class="fa fa-fw fa-user-plus"></i>Friend Requests</a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/groups')}">
+                                    <a href="#/groups"><i class="fa fa-fw fa-users"></i>Groups</a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/shops')}">
+                                    <a href="#/shops"><i class="fa fa-fw fa-bitcoin"></i>Shops</a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/logout')}">
+                                    <a href="#/logout"><i class="fa fa-fw fa-sign-out"></i>Exit</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+                <span ng-if="showMobileMenu">
+                    <div id="mobileNavDiv">
+                        <nav class="navbar mobile-nav-content navbar-subnav" role="navigation" id="mobile-nav-content">
+                            <ul class="navbar-mobile-list navbar-nav">
+                                <li data-ng-class="{'active':getClass('/feed')}">
+                                    <a href="" ng-click="mobileDropdown = !mobileDropdown"><i class="fa fa-fw fa-bars feedIcon" id="feedIcon"></i></a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/feed')}">
+                                    <a href="#/feed"><i class="fa fa-fw fa-rss"></i></a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/myprofile')}">
+                                    <a href="#/myprofile"><i class="fa fa-fw fa-home"></i></a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/inbox')}">
+                                    <a href="#/inbox"><i class="fa fa-fw fa-comment messageIcon" id="messageIcon"></i></a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/myfriends')}">
+                                    <a href="#/myfriends"><i class="fa fa-fw fa-user"></i></a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/groups')}">
+                                    <a href="#/groups"><i class="fa fa-fw fa-users"></i></a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/friendrequest')}">
+                                    <a href="#/friendrequest"><i class="fa fa-fw fa-user-plus"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                        <div ng-show="mobileDropdown" class="mobile-nav-dropdown" id="mobile-nav-dropdown">
+                            <ul class="nav navbar-nav" id="navList">
+                                <li data-ng-class="{'active':getClass('/shops')}">
+                                    <a href="#/shops" ng-click="mobileDropdown = !mobileDropdown"><i class="fa fa-fw fa-bitcoin"></i>Shops</a>
+                                </li>
+                                <li data-ng-class="{'active':getClass('/logout')}">
+                                    <a href="#/logout" ng-click="mobileDropdown = !mobileDropdown"><i class="fa fa-fw fa-sign-out"></i>Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </span>
+                <div ng-include="'app/chatbox/chatbox.html'"></div>
+                <div class="view-animate-container">
+                    <div ng-view></div>
+                </div>
+                <div id="footer" class="footer" style="display:none">
+                    <a ng-href="#/donate">Donate</a> |
+                    <a ng-href="#/contact">Contact</a> |
+                    <a data-ng-href="#/policy">Policy</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../javascripts/lib.js"></script>
+    <script>
+        onload = function() {
+            openpgp.initWorker('javascripts/openpgp.worker.min.js');
+            window.loading_screen.finish();
+            audioTyping     = new Audio('../sounds/keyboard.mp3');
+            audioUserOnline = new Audio('../sounds/online.mp3');
+            audioMessage    = new Audio('../sounds/message.mp3');
+        };
+    </script>
+
+</body>
+</html>

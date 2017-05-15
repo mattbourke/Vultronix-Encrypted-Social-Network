@@ -1,0 +1,109 @@
+<div class="container">
+    <div class="alert alert-info" ng-show="loading">Loading...</div>
+    <div class="warning label-warning" ng-show="warning">Warning: before you can create/join groups you must have a <a href="#/myprofile/about" style="color:white;text-decoration: underline;">profile image</a> and a nickname.</div>
+    <div class="col-md-6 col-lg-4 item" id="acceptGroupDiv">
+        <div class="panel panel-default timeline-block">
+            <div class="panel-heading panel-heading-gray title">
+                Accept Group Invitation
+            </div>
+            <div class="panel-body" ng-controller="acceptGroupRequestController">
+                <p class="label label-danger">{{tokenStatus}}</p>
+                <form name="tokenForm" ng-show="tokenFormShow" class="form-horizontal" role="form">
+                    <input class="form-control" type="text" ng-model="credentials.token" placeholder="Enter token" required ng-enter="enterRequestToken()">
+                </form>
+                <div id="GroupTokenDetailsDiv" ng-show="GroupTokenDetailsDiv">
+
+                    <div class="media">
+                        <div class="media-left">
+                            <img ng-src="{{invitersThumbnail}}" width="50" alt="" class="img-circle img-50x50">
+                        </div>
+                        <div class="media-body">
+                            <div class="group">Group name: {{groupName}}</div>
+                            <span class="user">Invited by: {{ invitersName | limitTo : 20}}</span>
+                            <div class="message">Message: {{inviteMessage | limitTo : 220}}</div>
+                        </div>
+                    </div>
+
+
+                    <br />
+                    <i>
+                        Note: Your messages will be visible to everyone in the group, but no one from outside of the group.<br />
+                        All users within a group will be able to see your username/avatar when you post, but will not have access to your profile.
+                    </i>
+                </div>
+                <br />
+                <a ng-href="{{makeUrl()}}">{{makeUrl()}}</a>
+                <div class="panel-footer" style="padding: 10px 0px">
+                    <button class="btn btn-primary" ng-click="enterRequestToken()" ng-disabled="tokenForm.$invalid" ng-show="readRequest">Read request</button>
+                    <button class="btn btn-primary" ng-show="acceptRequest" ng-click="acceptGroupInviteRequest()">Join Group</button>
+                    <button class="btn btn-primary" ng-show="cancelRequest" ng-click="requestCancel()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-4 item" id="createGroupDiv">
+        <div class="panel panel-default timeline-block">
+            <div class="panel-heading panel-heading-gray title">
+                Create A New Group
+            </div>
+            <div class="panel-body" ng-controller="createGroupController">
+                <form name="tokenForm" ng-show="groupFormShow" class="form-horizontal" role="form">
+                    <input class="form-control" type="text" ng-model="groupDetails.groupName" placeholder="Group name" required>
+                    <br />
+                    <input class="form-control" type="text" ng-model="groupDetails.groupDescription" placeholder="Group description" required ng-enter="createGroup()">
+                </form>
+                <br />
+                <a ng-href="{{makeUrl()}}">{{makeUrl()}}</a>
+                <div class="panel-footer" style="padding: 10px 0px">
+                    <button class="btn btn-primary" ng-click="createGroup()">Create a hidden group</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="filter">
+        <form class="form-inline">
+            <label>Filter:</label>
+            <div id="users-filter-trigger">
+                <div class="search-name">
+                    <input type="text" class="form-control" name="user-first" ng-model="searchText" placeholder="Group Name" id="name">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <ul>
+        <li data-ng-repeat="group in groups | orderBy:'name' | filter:searchText" style="display: inline;list-style: none;">
+           <div class="col-md-6 col-lg-4 item">
+                <div class="panel panel-default" style="float:right;">
+                    <div class="panel-heading">
+                        <div class="media">
+                            <div class="pull-left">
+                                <a href="#/grouppage/{{group.groupUUID}}">
+                                    <img src="images/anon.png" width="50" alt="people" class="img-circle img-50x50">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading margin-v-5"><a href="#/grouppage/{{group.groupUUID}}">{{ group.groupName | limitTo : 25}}</a></h4>
+                                <div class="profile-icons">
+                                    <span><i class="fa fa-users"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <p>{{ group.groupDescription | limitTo : 40}}</p>
+                    </div>
+                    <div class="panel-footer">
+                        <a href="#/grouppage/{{group.groupUUID}}" class="btn btn-default btn-sm"><i class="fa fa-users"></i> View Group</a>
+                        <a href="" ng-click="leaveGroup(group.groupUUID)" class="btn btn-default btn-sm"><i class="fa fa-times"></i> Leave Group</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>
+

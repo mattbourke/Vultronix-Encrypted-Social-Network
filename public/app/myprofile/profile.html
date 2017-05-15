@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="alert alert-info" ng-show="loading">Loading...</div>
+    <div class="cover profile">
+        <div ng-include="'app/myprofile/templateCover.html'"></div>
+    </div>
+    <span ng-if="profileMode === 'about'">
+        <div class="alert alert-info" ng-show="loadingProfile">{{profileMessage}}...</div>
+        <div class="tabbable">
+            <div ng-include="'app/myprofile/templateTabs.html'" class="tab-pane"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div ng-include="'app/myprofile/templateAbout.html'"></div>
+            </div>
+            <div class="col-md-6">
+                <div ng-include="'app/myprofile/templateBiography.html'"></div>
+            </div>
+        </div>
+<!--         <div class="panel panel-default">
+            <div ng-include="'app/myprofile/templateBookmarks.html'"></div>
+        </div> -->
+    </span>
+    <span ng-if="profileMode === 'feed'">
+        <div ng-include="'app/myprofile/feed.html'"></div>
+    </span>
+    <span ng-if="profileMode === 'bitcoin'">
+        <div class="panel panel-default">
+            <div ng-include="'app/myprofile/wallet.html'"></div>
+        </div>
+    </span>
+</div>

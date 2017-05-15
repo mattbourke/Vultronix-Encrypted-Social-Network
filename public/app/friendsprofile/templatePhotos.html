@@ -1,0 +1,12 @@
+<div class="container">
+    <span id="photosSpan" ng-show="photosShow" data-ng-repeat="photo in photos">
+        <img ng-src   = "{{photo.thumbUrl}}"
+             id       = "thumbnail_{{$index}}"
+             alt      = "photo Cover"
+             title    = "{{photo.caption}}"
+             height   = "80"
+             width    = "120"
+             ng-click = "Lightbox.openModal(photos, $index)"
+             >
+    </span>
+</div>

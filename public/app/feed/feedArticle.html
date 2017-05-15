@@ -1,0 +1,84 @@
+﻿<div class="container">
+    <div class="alert alert-info" ng-show="loadingFeed">{{feedLoadingMessage}}..</div>
+    <div class="col-md-2"></div>
+    <div class="col-md-6">
+        <div class="panel panel-default timeline-block timeline-vul">
+            <div class="panel-heading">
+                <div class="media">
+                    <div class="media-left">
+                        <a href="">
+                            <img class="img-50x50" ng-src="{{article.statusData.authorThumbnail}}" class="media-object">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <a href="">{{ article.statusData.userName | limitTo : 20}}</a>
+                        <span>{{article.statusData.moment}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <span ng-if="article.media.length !== 0">
+                    <carousel interval="myInterval" style="width: 268px;">
+                        <slide ng-repeat="media in article.media track by $index" active="media.active">
+                            <span>
+                                <img id       = "thumbnail_{{media.type}}_{{$index}}"
+                                     ng-click = "Lightbox.openModal(article.media, $index)"
+                                     ng-src   = "{{media.thumbUrl}}"
+                                     style    = "width: 268px; max-height: 201px;"
+                                >
+                            </span>
+                        </slide>
+                    </carousel>
+                </span>
+                <p class="wrapped">
+                    {{ article.statusData.article }}
+                </p>
+            </div>
+            <div class="view-all-comments">
+                <span>{{article.comments.length}} comments</span>
+            </div>
+            <ul class="comments">
+                <span ng-if="article.comments">
+                    <li class="media" data-ng-repeat="comments in article.comments">
+                        <div class="media-left">
+                            <a href="">
+                                <img class="img-50x50" ng-src="{{comments.authorThumbnail}}" class="media-object">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <a href="" class="comment-author pull-left">{{comments.authorName}}</a>
+                            <span>{{comments.commentText}}</span>
+                            <div class="comment-date">{{comments.commentMoment}}</div>
+                        </div>
+                    </li>
+                </span>
+                <li class="comment-form">
+                    <div class="input-group">
+                        <a  href="" ng-click="commentForm$index = !commentForm$index">
+                            Add a comment
+                        </a>
+                        <div ng-show="commentForm$index">
+                            <ul style="display:flex; list-style:none; margin-left: -30px; margin-top: 10px;">
+                                <li>
+                                    <input type="text" style="margin-left: -15px;width: 190px;" ng-model="commentText$index" placeholder="Make a comment" autocorrect="off" autocapitalize="none" ng-enter="saveComment(article.statusUUID,commentText$index,article.decryptKey);commentText$index='';commentForm$index = !commentForm$index" autofocus>
+                                </li>
+                                <li>
+                                    <button ng-click="saveComment(article.statusUUID,commentText$index,article.decryptKey);commentText$index='';commentForm$index = !commentForm$index" class="btn btn-primary">
+                                        <i class="fa fa-check-circle"></i>
+                                    </button>
+                                </li>
+                                <li>
+                                    <button ng-click="commentForm$index = !commentForm$index" type="button" class="btn btn-default">
+                                        <i class="fa fa-times"></i>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <input name="articleId" value="{article.statusUUID}}" hidden>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-4"></div>
+</div>

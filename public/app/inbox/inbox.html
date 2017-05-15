@@ -1,0 +1,136 @@
+<div class="container">
+<div class="alert alert-info" ng-show="loading">{{statusMessage}}...</div>
+    <div class="media messages-container media-clearfix-xs-min media-grid">
+        <div class="media-left">
+            <div class="messages-list">
+                <div class="panel panel-default" tabindex="1" style="overflow: hidden; outline: none;">
+                    <ul class="list-group">
+                        <li class="list-group-item active" style="border-bottom: 3px solid white;padding-left: 10px;color: white;">
+                            <div class="media">
+                                <a href="" ng-click="tab = 'a'; showWelcomeDiv()">
+                                    <div class="media-body">
+                                        <div style="font-size: large;padding-left: 5px;color: #fff;font-weight: bold;">
+                                            Private inbox
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <i class="fa fa-home fa-2x" style="color:#fff;"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="list-group-item inbox-left-info">
+                            <div class="inbox-left-info">
+                                <div class="panel-default">
+                                    <a href="" ng-click="tab = 'a'; showWelcomeDiv()">
+                                        <img ng-src="{{myThumb}}" alt="people" class="media-object img-circle center-block">
+                                    </a>
+                                </div>
+
+                                <div class="panel-body">
+                                    <p style="vertical-align: middle;">All inbox and chatbox messages are double encrypted using <a href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard" target="_blank" id="inbox-description-link">AES encryption</a> and <a href="https://en.wikipedia.org/wiki/Pretty_Good_Privacy" target="_blank" id="inbox-description-link">PGP encryption</a>.</p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="media-body">
+            <ul class="nav nav-tabs">
+              <li role="presentation" ng-class="{active: tab=='a'}"><a ng-click="tab = 'a'; showWelcomeDiv()">Messages</a></li>
+              <li role="presentation" ng-class="{active: tab=='b' || tab=='c'}" ><a href="javascript:void(0); " ng-click="tab = 'b' ">Compose</a></li>
+            </ul>
+
+            <div class="panel-body inbox-panel" ng-show="tab == 'a'">
+                <div class="messages-friend-list">
+                    <ul class="list-group" >
+                        <li class="list-group-item" data-ng-repeat="friend in messageConversationHeaders | orderBy:'-dateTime'">
+                            <a href="javascript:void(0);" ng-click="tab = 'c'; showConversation(friend.authorUUID)">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img ng-src="{{friend.authorThumb}}" width="50" alt="" class="img-50x50">
+                                    </div>
+                                    <div class="media-body">
+                                        <span class="user">{{friend.authorName}}: </span>
+                                        <span class="date">{{friend.lastSent}}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    <ul>
+                </div>
+            </div>
+
+            <div class="panel-body inbox-panel" ng-show="tab == 'b'">
+                <div id="filter">
+                    <form class="form-inline">
+                        <div id="users-filter-trigger">
+                            <div class="search-name">
+                                <input type="text" class="form-control" name="user-first" ng-model="searchText" placeholder="First Last Name" id="name">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="messages-friend-list">
+                    <ul class="list-group" >
+                        <li class="list-group-item" data-ng-repeat="friend in friends | orderBy:'name' | filter:searchText">
+                            <a href="javascript:void(0);" ng-click="tab = tab=='c'? null: 'c'; showConversation(friend.friendUUID)">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img ng-src="{{friend.thumbnail}}" alt="people" class="img-50x50">
+                                    </div>
+                                    <div class="media-body">
+                                        Compose message to: <span class="user">{{ friend.name | limitTo : 120}}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    <ul>
+                </div>
+            </div>
+
+            <div ng-show="tab == 'c'">
+                <div class="panel panel-default share">
+                    <div class="input-group">
+                        <input type="text" class="form-control share-text" ng-model="newMessageText" placeholder="Write message..." ng-enter="newConversationMessage()">
+                        <div class="input-group-btn">
+                            <a class="btn btn-primary" href="" data-toggle="sidebar-menu" ng-click="newConversationMessage()">
+                                <i class="fa fa-comments"></i> Send
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="commentsContainer" data-ng-repeat="comment in conversationComments | orderBy:'-dateTime'">
+                    <div class="media">
+                        <div class="media-left" ng-class-odd="" ng-class-even="'pull-right'">
+                            <a href="{{comment.profileURL}}">
+                                <img ng-src="{{comment.thumbnail}}" alt="people" class="img-circle img-50x50">
+                            </a>
+                        </div>
+                        <div class="media-body message">
+                            <div class="panel panel-default">
+                                <div class="panel-heading panel-heading-white">
+                                    <div class="pull-right">
+                                        <small class="text-muted">{{comment.createdDate}}</small>
+                                    </div>
+                                    <a href="{{comment.profileURL}}">{{comment.authorName}}.</a>
+                                </div>
+                                <div class="panel-body emoji-text">
+                                    {{comment.message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div  ng-show="showCommentsMoreButton" style="text-align: center;">
+                    <a  href="" ng-click="processCommentsMoreButton(currentInboxCommentsFriendUUID)" class="btn btn-primary">More</a>
+                </div>
+                <div  ng-show="!showCommentsMoreButton" class="alert alert-info">End of conversation.</div>
+                <div class="alert alert-info" ng-show="loading">{{statusMessage}}...</div>
+            </div>
+        </div>
+    </div>
+</div>

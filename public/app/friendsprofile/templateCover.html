@@ -1,0 +1,25 @@
+<div class="wrapper">
+    <div class="image">
+        <img    id       = "coverImage"
+                ng-src   = "{{ headerImage }}"
+                class    = "img-responsive"
+        >
+    </div>
+    <div class="panel-body bitcoin" title="Bitcoin Address">
+        <qrcode data="{{bitcoinAddress}}" error-correction-level="10" size="249"></qrcode>
+    </div>
+</div>
+<div class="cover-info">
+    <div class="avatar">
+        <img    id       = "profileImage"
+                ng-src   = "{{ profileImage }}"
+                class    = "img-responsive"
+        >
+    </div>
+    <div class="name"><a href="">{{ myProfile.name.pData }}</a></div>
+    <ul class="cover-nav">
+        <li><a href="#/friendsprofile/{{friendUUID}}/feed"><i class="fa fa-fw fa-history"></i> Timeline</a></li>
+        <li><a href="#/friendsprofile/{{friendUUID}}/about"><i class="fa fa-fw fa-info-circle"></i> About</a></li>
+    </ul>
+    <img id="hiddenImage" style="dispaly: none;">
+</div>

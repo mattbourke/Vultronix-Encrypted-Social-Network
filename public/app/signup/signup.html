@@ -1,0 +1,84 @@
+<div id="signupDiv" class="login" ng-controller="SignupController">
+	<div class="container">
+		<div id="content">
+			<div class="blank-navbar"></div>
+			<div class="container-fluid">
+				<div class="lock-container">
+					<div class="panel panel-default">
+						<div class="panel-body text-center">
+							<br />
+							<img ng-src="{{vLogo}}" border="0" />
+						</div>
+ 						<div class="panel-body" ng-show="signupDisclaimer">
+							<p>	<i>By signing up, you the "user" agree to the following. </i>
+							</p>
+
+ 							<ol>
+ 								<li>Obey your local laws that do not contradict the <a href="https://en.wikipedia.org/wiki/Universal_Declaration_of_Human_Rights" target="_blank">Universal Declaration of Human Rights</a></li>
+ 								<li>You agree that Vultronix cannot be held responsible for data loss.</li>
+ 								<li>You agree never to <a href="http://www.urbandictionary.com/define.php?term=dox" target="_blank">Dox</a> another user.</li>
+ 								<li>You understand and accept that one day the site may require <a href="https://www.youtube.com/watch?v=Gc2en3nHxA4" target="_blank">Bitcoin</a> micropayments.</li>
+ 								<li>You agree that it is against site policy to even suggest that Vultronix will sell your data, Vultronix has no access to your data.</li>
+ 								<li>You understand that you <strong>must remember</strong> your login details, or you will <strong>never be able to login again</strong>. Password resets are not possible.</li>
+ 							</ol>
+ 						</div>
+						<div class="panel-body text-center" ng-show="signupForm">
+							<form name="signupForm" ng-submit="signup()" novalidate>
+								<p class="label label-warning">Warning - If you forget the 3 below you will never login again</p>
+								<p class="label label-danger" ng-bind="loginStatus"></p>
+								<div class="form-group" ng-class="{'has-error':signupForm.email.$invalid && !signupForm.email.$pristine,'has-success':signupForm.email.$valid && !signupForm.email.$pristine}">
+									<input type="text" name="email" class="form-control"  ng-minlength="10" ng-model="credentials.email" placeholder="1. Email address" autocorrect="off" autocapitalize="none" spellcheck="false" ng-enter="signup()" required>
+									<p ng-show="signupForm.email.$error.required && !signupForm.email.$pristine" class="error-class">Email is required.</p>
+									<p ng-show="signupForm.email.$error.minlength" class="error-class">Email is too short.</p>
+								</div>
+								<h6>Or a long login name you won't forget. You <strong>must remember</strong> this.</h6>
+								<hr>
+								<div class="form-group" ng-class="{'has-error':signupForm.password.$invalid && !signupForm.password.$pristine,'has-success':signupForm.password.$valid && !signupForm.password.$pristine}">
+									<input type="password" name="password" class="form-control"  ng-minlength="10" ng-model="credentials.password" placeholder="2. Password" autocorrect="off" autocapitalize="none" spellcheck="false" ng-enter="login()" required>
+									<p ng-show="signupForm.password.$error.required && !signupForm.password.$pristine" class="error-class">Password is required.</p>
+									<p ng-show="signupForm.password.$error.minlength" class="error-class">Password is too short.</p>
+								</div>
+								<h6>This must be at least 10 characters long. You <strong>must remember</strong> this.</h6>
+								<hr>
+								<div class="form-group" ng-class="{'has-error':signupForm.words.$invalid && !signupForm.words.$pristine,'has-success':signupForm.words.$valid && !signupForm.words.$pristine}">
+									<input type="password" name="words" class="form-control"  ng-minlength="10" ng-model="credentials.words" placeholder="3. Words" autocorrect="off" autocapitalize="none" ng-enter="login()" required>
+									<p ng-show="signupForm.words.$error.required && !signupForm.words.$pristine" class="error-class">Words are required.</p>
+									<p ng-show="signupForm.words.$error.minlength" class="error-class">Not enough words.</p>
+								</div>
+								<h6>At least 4 random words.<br />
+								The more words the more secure your encryption, but you <strong>must remember</strong> this.</h6>
+								<hr>
+								<div class="form-group" ng-class="{'has-error':signupForm.name.$invalid && !signupForm.name.$pristine,'has-success':signupForm.name.$valid && !signupForm.name.$pristine}">
+									<input type="text" name="name" class="form-control"  ng-minlength="2" ng-model="credentials.name" placeholder="name" autocorrect="off" autocapitalize="none" ng-enter="login()" required>
+									<p ng-show="signupForm.name.$error.required && !signupForm.name.$pristine" class="error-class">Name required.</p>
+									<p ng-show="signupForm.name.$error.minlength" class="error-class">Name.</p>
+								</div>
+								<h6>We have no <strong>stupid</strong> real name policy.<br />Use any name, you don't need to remember this.</h6>
+								<hr>
+								<div class="form-group" ng-class="{'has-error':signupForm.nickname.$invalid && !signupForm.nickname.$pristine,'has-success':signupForm.nickname.$valid && !signupForm.nickname.$pristine}">
+									<input type="text" nickname="nickname" class="form-control"  ng-minlength="2" ng-model="credentials.nickname" placeholder="nickname" autocorrect="off" autocapitalize="none" ng-enter="login()" required>
+									<p ng-show="signupForm.nickname.$error.required && !signupForm.nickname.$pristine" class="error-class">Nickname required.</p>
+									<p ng-show="signupForm.nickname.$error.minlength" class="error-class">Nickname.</p>
+								</div>
+								<h6>Both your name and nickname can be changed later.</h6>
+								<hr>
+								<button type="submit" class="btn btn-primary" ng-disabled="signupForm.$invalid">Signup <i class="fa fa-fw fa-unlock-alt"></i></button>
+								<span class="h6 signup-separator">or</span>
+								<a href="#/home" class="btn btn-primary">Cancel <i class="fa fa-fw fa-times"></i></a>
+							</form>
+						</div>
+						<div class="panel-body" ng-show="signupPleasewaitDiv">
+							<p ng-bind="signupStatus"></p>
+							<p>Please wait up to 5 minutes for your browser to generate your encryption keys, you'll then be redirected to your profile page, here you'll need to</p>
+							<ol>
+								<li>Click the default <b>profile picture</b> and upload a new one.</li>
+								<li>Click the default <b>cover photo</b> and upload one of your own</li>
+							</ol>
+							<p>Once you've done the above, you'll be able to create/join private groups and create/accept friend request tokens. <b>Have fun and be nice :)</b></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

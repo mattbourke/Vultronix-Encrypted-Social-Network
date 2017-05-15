@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="alert alert-info" ng-show="loading">{{statusMessage}}...</div>
+    <div id="filter">
+        <form class="form-inline">
+            <label>Filter:</label>
+            <div id="users-filter-trigger">
+                <div class="search-name">
+                    <input type="text" class="form-control" name="user-first" ng-model="searchText" placeholder="First Last Name" id="name">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <ul>
+        <li data-ng-repeat="friend in friends | orderBy:'name' | filter:searchText" style="display: inline;list-style: none;">
+           <div class="col-md-6 col-lg-4 item">
+                <div class="panel panel-default" style="float:right;">
+                    <div class="panel-heading">
+                        <div class="media">
+                            <div class="pull-left">
+                                <a href="#/friendsprofile/{{friend.friendUUID}}/feed">
+                                    <img ng-src="{{friend.thumbnail}}" alt="people" class="media-object img-circle img-50x50">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading margin-v-5"><a href="#/friendsprofile/{{friend.friendUUID}}/feed">{{ friend.name | limitTo : 20}}</a></h4>
+                                <div class="profile-icons">
+                                    <span><i class="fa fa-photo"></i></span>
+                                    <span><i class="fa fa-video-camera"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer">
+                        <a href="#/friendsprofile/{{friend.friendUUID}}/feed" class="btn btn-default btn-sm"><i class="fa fa-user"></i> View Profile</a>
+                        <a href="" ng-click="deleteFriend(friend.friendUUID)" class="btn btn-default btn-sm"><i class="fa fa-times"></i> Delete Friend</a>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+</div>

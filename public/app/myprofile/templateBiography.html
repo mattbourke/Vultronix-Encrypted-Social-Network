@@ -1,0 +1,20 @@
+<div class="panel panel-default">
+    <div class="panel-heading panel-heading-gray">
+        <button type="button" class="btn btn-white btn-xs pull-right" ng-click="biographyForm = !biographyForm;biographyData = !biographyData">
+            <i class="fa fa-pencil"></i>
+        </button>
+        <i class="fa fa-book"></i> Biography
+    </div>
+    <div class="panel-body">
+        <textarea name="biography" ng-model="biography" id="biographyId" placeholder="A little about you...." class="form-control share-text vul-textarea" rows="4" cols="36" ng-show="biographyForm === true"></textarea>
+		<div id="textarea" ng-show="biographyForm === false" class="wrapped"><p>{{biography}}</p></div>
+        <span ng-show="biographyForm">
+            <button type="submit" class="btn btn-primary" ng-click="saveBiography(biography);biographyForm = !biographyForm;biographyData = !biographyData">
+                Save
+            </button>
+            <button type="button" class="btn btn-default" ng-click="biographyForm = !biographyForm;biographyData = !biographyData">
+                Cancel
+            </button>
+        </span>
+    </div>
+</div>

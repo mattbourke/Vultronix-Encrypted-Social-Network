@@ -1,0 +1,38 @@
+<div class="container">
+    <div class="alert alert-info" ng-show="loadingImages">{{statusMessage}}...</div>
+    <div class="cover profile">
+        <div ng-include="'app/friendsprofile/templateCover.html'"></div>
+    </div>
+
+    <span ng-if="profileMode === 'about'">
+        <div class="alert alert-info" ng-show="loadingProfile">{{profileMessage}}...</div>
+        <div class="tabbable">
+            <div ng-include="'app/friendsprofile/templateTabs.html'" class="tab-pane"></div>
+        </div>
+        <div class="row">
+            <span ng-if="allowProfileEdit">
+                <div class="col-md-6">
+                    <div ng-include="'app/friendsprofile/templateAboutEdit.html'"></div>
+                </div>
+                <div class="col-md-6">
+                    <div ng-include="'app/friendsprofile/templateBiographyEdit.html'"></div>
+                </div>
+            </span>
+            <span ng-if="!allowProfileEdit">
+                <div class="col-md-6">
+                    <div ng-include="'app/friendsprofile/templateAbout.html'"></div>
+                </div>
+                <div class="col-md-6">
+                    <div ng-include="'app/friendsprofile/templateBiography.html'"></div>
+                </div>
+            </span>
+        </div>
+<!--         <div class="panel panel-default">
+            <div ng-include="'app/friendsprofile/templateBookmarks.html'"></div>
+        </div> -->
+    </span>
+
+    <span ng-if="profileMode === 'feed'">
+        <div ng-include="'app/friendsprofile/feed.html'"></div>
+    </span>
+</div>

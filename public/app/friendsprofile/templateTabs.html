@@ -1,0 +1,10 @@
+<ul class="nav nav-tabs" tabindex="0" style="overflow: hidden; outline: none;">
+    <li ng-repeat="tab in tabs" ng-class="{active:isActiveTab(tab.url)}" ng-click="showTab(tab)">
+        <a href=""><i class="{{tab.faIcon}}"></i> {{tab.title}}</a>
+    </li>
+</ul>
+<div class="tab-content">
+    <div id="mainView">
+        <div ng-include="currentTab" class="tab-pane"></div>
+    </div>
+</div>

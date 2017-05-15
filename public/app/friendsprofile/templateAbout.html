@@ -1,0 +1,15 @@
+<div class="panel panel-default">
+    <div class="panel-heading panel-heading-gray">
+        <i class="fa fa-fw fa-info-circle"></i> About
+    </div>
+    <div class="panel-body">
+        <ul class="list-unstyled profile-about margin-none">
+            <li data-ng-repeat="(key, value) in myProfile | orderBy:'value.orderId'">
+                <div class="row">
+                    <div class="col-sm-4"><span class="text-muted">{{ value.title }}</span></div>
+                    <span>{{value.pData}}</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

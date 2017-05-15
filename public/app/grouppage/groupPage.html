@@ -1,0 +1,258 @@
+<div class="container">
+    <dv class="alert alert-info" ng-show="loading">{{statusMessage}}</div>
+    <div class="media messages-container media-clearfix-xs-min media-grid">
+        <div class="media-left">
+            <div class="messages-list">
+                <div class="panel panel-default" tabindex="1" style="overflow: hidden; outline: none;">
+                    <ul class="list-group">
+                        <li class="list-group-item active" style="border-bottom: 3px solid white;padding-left: 10px;color: white;">
+                            <div class="media">
+                                <a href="" ng-click="tab = 'discussionsTab'; showGroupThreads()">
+                                    <div class="media-body">
+                                        <div style="font-size: large;padding-left: 5px;color: #fff;font-weight: bold;">
+                                            {{groupName | limitTo : 19}}
+                                        </div>
+                                    </div>
+                                    <div class="media-right">
+                                        <i class="fa fa-home fa-2x" style="color:#fff;"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="panel-default">
+                                <div ng-switch on="isAdmin">
+                                    <div ng-switch-when="true">
+                                        <a href="">
+                                            <img id       = "groupImage"
+                                                 ng-src   = "{{ groupImage }}"
+                                                 ng-click = "imageSelect('groupImageInput')"
+                                                 title    = "Click to upload a new avatar ( 110 x 110 )"
+                                                 class    = "media-object img-circle center-block img-responsive">
+                                        </a>
+                                        <input id       = "groupImageInput"
+                                               type     = "file"
+                                               name     = "groupImageInput"
+                                               ng-model = "groupImageInput"
+                                               onchange = "angular.element(this).scope().processImage('groupImage')"
+                                               style    = "display: none;">
+                                    </div>
+                                    <div ng-switch-default>
+                                            <img id       = "groupImage"
+                                                 ng-src   = "{{ groupImage }}"
+                                                 class    = "media-object img-circle center-block img-responsive">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+                                <p style="vertical-align: middle;">{{groupDescription}}</p>
+                            </div>
+                        </li>
+                        <li class="list-group-item active" style="border-bottom: 3px solid white;padding-left: 10px;color: white;">
+                            <div class="media">
+                                <div class="media-left">
+                                    <i class="fa fa-user-plus fa-2x" style="color:#fff;"></i>
+                                </div>
+                                <div class="media-body">
+                                    <div style="font-size: large;padding-left: 5px;color: #fff;font-weight: bold;">
+                                        Invite friends
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="panel-body" ng-controller="createInviteController">
+                                <form name="friendshipForm" ng-show="inviteFormShow" class="form-horizontal" role="form">
+                                    <input class="form-control" type="text" ng-model="credentials.message" placeholder="Short Message" required  ng-enter="createInvite()">
+                                </form>
+                                <div id="inviteTokenDiv" ng-show="inviteTokenDiv">
+                                    <p>
+                                        Pass this friend request token on to your friend, a token can only be used once, for multiple friends create multiple tokens.
+                                    </p>
+                                    <p ng-bind="inviteToken" style="word-wrap: break-word;"></p>
+                                </div>
+                                <br />
+                                <div class="panel-footer" style="padding: 10px 0px">
+                                    <button class="btn btn-primary" ng-click="createInvite()"  ng-show="generateLink">Generate token</button>
+                                    <button class="btn btn-primary" ng-click="anotherInvite()" ng-show="generateMore">Generate more</button>
+                                </div>
+                                <div id="tokensExpireMessageDiv">
+                                    <p>
+                                        Tokens expire after 2 weeks of no acceptance.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="media-body">
+            <ul class="nav nav-tabs">
+              <li role="presentation" ng-class="{active: tab=='discussionsTab' || tab=='threadDiscussionsTab'}"><a href="javascript:void(0);"  ng-click="tab = 'discussionsTab'; showGroupThreads()">Discussions</a></li>
+              <li role="presentation" ng-class="{active: tab=='membersTab'}"><a href="javascript:void(0);"  ng-click="tab = 'membersTab'">Members</a></li>
+              <li role="presentation" ng-class="{active: tab=='privateInbox' || tab=='privateInboxConversationTab'}"><a href="javascript:void(0);"  ng-click="tab = 'privateInbox'; showPrivateMessages();"><i class="fa fa-fw fa-comment" id="groupMessageIcon"></i> Private inbox</a></li>
+            </ul>
+
+            <div class="panel-body inbox-panel" ng-show="tab == 'discussionsTab'">
+                <div class="panel panel-default share">
+                    <div class="input-group">
+                        <input type="text" class="form-control share-text" ng-model="newGroupThreadText" ng-pattern="validText" placeholder="Start a new topic" ng-enter="newGroupThread()">
+                        <div class="input-group-btn">
+                            <a class="btn btn-primary" href=""  ng-click="newGroupThread()">
+                                <i class="fa fa-comments"></i> New topic
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="messages-friend-list">
+                    <ul class="list-group " >
+                        <li class="list-group-item" data-ng-repeat="thread in threads | orderBy:'-dateTime'">
+                            <div class="pull-right">
+                                <small class="text-muted">{{thread.createdDate}}</small>
+                            </div>
+                            <p><a href="" ng-click="showThread(thread.threadUUID)" class="emoji-text">{{ thread.threadTitle | limitTo : 120}}</a></p>
+                        </li>
+                    <ul>
+                </div>
+                <div ng-show="showThreadsMoreButton" style="text-align: center;">
+                    <a href="" ng-click="processThreadsMoreButton()" class="btn btn-primary">More</a>
+                </div>
+                <div  ng-show="!showThreadsMoreButton" class="alert alert-info">End of discussions.</div>
+                <div class="alert alert-info" ng-show="loading">{{statusMessage}}...</div>
+            </div>
+
+            <div class="panel-body inbox-panel" ng-show="tab == 'threadDiscussionsTab'">
+                <div class="panel panel-default share">
+                    <div class="input-group">
+                        <input type="text" class="form-control share-text" ng-model="newThreadCommentText" placeholder="Add your comment" ng-enter="newThreadComment()">
+                        <div class="input-group-btn">
+                            <a class="btn btn-primary" href=""  ng-click="newThreadComment()">
+                                <i class="fa fa-comments"></i> New comment
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="commentsContainer" data-ng-repeat="comment in threadComments | orderBy:'-Datetime'">
+                    <div class="media">
+                        <div class="media-left" ng-class-odd="" ng-class-even="'pull-right'">
+                            <a href="" ng-click="tab = tab=='privateInboxConversationTab'? null: 'privateInboxConversationTab'; showPrivateConversation(comment.authorUUID)">
+                                <img ng-src="{{comment.authorThumb}}" alt="people" class="img-circle img-50x50">
+                            </a>
+                        </div>
+                        <div class="media-body message">
+                            <div class="panel panel-default">
+                                <div class="panel-heading panel-heading-white">
+                                    <div class="pull-right">
+                                        <small class="text-muted">{{comment.createdDate}}</small>
+                                    </div>
+                                    <a href="" ng-click="tab = tab=='privateInboxConversationTab'? null: 'privateInboxConversationTab'; showPrivateConversation(comment.authorUUID)">{{comment.authorName}}.</a>
+                                </div>
+                                <div class="panel-body emoji-text">
+                                    {{comment.threadMessage}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="showThreadDiscussionsMoreButton" style="text-align: center;">
+                    <a href="" ng-click="processThreadDiscussionsMoreButton()" class="btn btn-primary">More</a>
+                </div>
+                <div  ng-show="!showThreadDiscussionsMoreButton" class="alert alert-info">End of discussions.</div>
+                <div class="alert alert-info" ng-show="loading">{{statusMessage}}...</div>
+            </div>
+
+
+            <div class="panel-body inbox-panel" ng-show="tab == 'membersTab'">
+                <div data-ng-repeat="member in members | orderBy:'memberName'" style="display: inline;list-style: none;">
+                    <li class="list-group-item">
+                        <a href="javascript:void(0);" ng-click="tab = tab=='privateInboxConversationTab'? null: 'privateInboxConversationTab'; showPrivateConversation(member.memberUUID)">
+                            <div class="media">
+                                <div class="media-left">
+                                    <img ng-src="{{member.memberThumb}}" width="50" alt="" class="img-50x50">
+                                </div>
+                                <div class="media-body">
+                                    <span class="user">Private message: {{ member.memberName | limitTo : 20}}</span>
+                                    <div class="message"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </div>
+            </div>
+
+
+            <div class="panel-body inbox-panel" ng-show="tab == 'privateInbox'">
+                <div class="messages-friend-list">
+                    <ul class="list-group" >
+                        <li class="list-group-item" data-ng-repeat="friend in messageConversationHeaders | orderBy:'-dateTime'">
+                            <a href="javascript:void(0);" ng-click="tab = 'privateInboxConversationTab'; showPrivateConversation(friend.authorUUID)">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <img ng-src="{{friend.authorThumb}}" width="50" alt="" class="img-50x50">
+                                    </div>
+                                    <div class="media-body">
+                                        <span class="user">{{friend.authorName}}: </span>
+                                        <span class="date">{{friend.lastSent}}</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    <ul>
+                </div>
+            </div>
+
+            <div class="panel-body inbox-panel" ng-show="tab == 'privateInboxConversationTab'">
+                <div class="panel panel-default share">
+                    <div class="input-group">
+                        <input type="text" class="form-control share-text" ng-model="newMessageText" placeholder="Write message..." ng-enter="newPrivateConversationMessage()">
+                        <div class="input-group-btn">
+                            <a class="btn btn-primary" href="" data-toggle="sidebar-menu" ng-click="newPrivateConversationMessage()">
+                                <i class="fa fa-comments"></i> Send
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="commentsContainer" data-ng-repeat="comment in conversationComments | orderBy:'-dateTime'">
+                    <div class="media">
+                        <div class="media-left" ng-class-odd="" ng-class-even="'pull-right'">
+                            <a href="">
+                                <img ng-src="{{comment.thumbnail}}" alt="people" class="img-circle img-50x50">
+                            </a>
+                        </div>
+                        <div class="media-body message">
+                            <div class="panel panel-default">
+                                <div class="panel-heading panel-heading-white">
+                                    <div class="pull-right">
+                                        <small class="text-muted">{{comment.createdDate}}</small>
+                                    </div>
+                                    <a href="">{{comment.authorName}}.</a>
+                                </div>
+                                <div class="panel-body emoji-text">
+                                    {{comment.message}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-show="showPrivateInboxConversationMoreButton" style="text-align: center;">
+                    <a href="" ng-click="processPrivateInboxConversationMoreButton()" class="btn btn-primary">More</a>
+                </div>
+                <div  ng-show="!showPrivateInboxConversationMoreButton" class="alert alert-info">End of discussions.</div>
+                <div class="alert alert-info" ng-show="loading">{{statusMessage}}...</div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>

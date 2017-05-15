@@ -1,0 +1,48 @@
+<div class="wrapper">
+    <div class="image">
+        <a href="">
+            <img    id       = "coverImage"
+                    ng-src   = "{{ headerImage }}"
+                    ng-click = "imageSelect('coverImageInput')"
+                    title    = "Click to upload a new Cover Image ( 300 x 800 )"
+                    class    = "img-responsive"
+            >
+        </a>
+        <input  id       = "coverImageInput"
+                type     = "file"
+                name     = "coverImageInput"
+                ng-model = "coverImageInput"
+                onchange = "angular.element(this).scope().processImage('coverImage')"
+                style    = "display: none;"
+        >
+    </div>
+    <div class="panel-body bitcoin" title="Bitcoin Address">
+        <qrcode data="{{bitcoinAddress}}" error-correction-level="10" size="249"></qrcode>
+    </div>
+</div>
+<div class="cover-info">
+    <div class="avatar">
+        <a href="">
+            <img    id       = "profileImage"
+                    ng-src   = "{{ profileImage }}"
+                    ng-click = "imageSelect('profileImageInput')"
+                    title    = "Click to upload a new avatar ( 110 x 110 )"
+                    class    = "img-responsive"
+            >
+        </a>
+        <input  id       = "profileImageInput"
+                type     = "file"
+                name     = "profileImageInput"
+                ng-model = "profileImageInput"
+                onchange = "angular.element(this).scope().processImage('profileImage')"
+                style    = "display: none;"
+        >
+    </div>
+    <div class="name about-mobile-name-align"><a href="#" onclick="return false;">{{ myProfile.name.pData }}</a></div>
+    <ul class="cover-nav">
+        <li><a href="#/myprofile/feed"><i class="fa fa-fw fa-history"></i> Timeline</a></li>
+        <li><a href="#/myprofile/about"><i class="fa fa-fw fa-info-circle"></i> About</a></li>
+        <li><a href="#/myprofile/bitcoin"><i class="fa fa-fw fa-bitcoin"></i> Bitcoin Wallet</a></li>
+    </ul>
+    <img id="hiddenImage" style="dispaly: none;">
+</div>
